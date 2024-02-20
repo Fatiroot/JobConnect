@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('formations', function (Blueprint $table) {
+        Schema::create('offre_users', function (Blueprint $table) {
             $table->id();
-            $table->string('ecole');
-            $table->string('diploma');
-            $table->string('year');
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->date('application_date');
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade') ->onDelete('cascade');
+            $table->foreignId('offre_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->text('description');
+            $table->integer('status')->default(1);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('formations');
+        Schema::dropIfExists('offre_users');
     }
 };

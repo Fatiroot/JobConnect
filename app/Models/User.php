@@ -21,7 +21,35 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'skill',
     ];
+
+    public const STATUS_LABELS = [
+        '1'=> 'Pending',
+        '2'=> 'Accepted',
+        '3'=> 'REFUSED',
+    ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function offers()
+    {
+        return $this->belongsToMany(Offre::class);
+    }
+
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class);
+    }
+    
+    public function formation()
+    {
+        return $this->hasMany(Formation::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

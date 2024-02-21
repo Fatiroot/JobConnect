@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('formations', function (Blueprint $table) {
             $table->id();
-            $table->string('institute');
+            $table->string('ecole');
             $table->string('diploma');
             $table->string('year');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');

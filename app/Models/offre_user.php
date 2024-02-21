@@ -6,25 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Company extends Model
+class offre_user extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable=[
-        'name',
+        'application_date',
         'description',
-        'phone',
-        'adress',
+        'offre_id',
         'user_id',
-
+        'status',
     ];
+
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
-
-    public function offres()
+    
+    public function offre()
     {
-        return $this->hasMany(Offre::class);
+        return $this->belongsTo(Offre::class);
     }
-
 }

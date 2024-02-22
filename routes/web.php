@@ -33,8 +33,13 @@ Route::middleware('auth')->group(function () {
 Route::get('/master',function(){
     return view('master');
 });
-Route::get('/index',function(){
-    return view('admin.index');
-});
+
+// Route users:
+Route::get('/dashboard', [UserController::class , 'allusers'])->name('dashboard');
+Route::delete('/admin/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/admin/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/admin/{user}', [UserController::class, 'update'])->name('users.update');
+Route::put('restore/{user}', [UserController::class, 'restore'])->name('users.restore');
+
 
 require __DIR__.'/auth.php';

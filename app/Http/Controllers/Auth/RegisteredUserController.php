@@ -34,13 +34,19 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone',
+
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'phone'=> $request->phone,
         ]);
+        $user->roles()->attach([2]);
+        $user->addMediaFromRequest('image')->toMediaCollection('images');
+
 
         event(new Registered($user));
 

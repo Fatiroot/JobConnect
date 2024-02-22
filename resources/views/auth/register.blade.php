@@ -1,6 +1,12 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
         @csrf
+
+         <!-- image -->
+         <div class="mt-4">
+            <label for="image">Image</label>
+            <input class='block mt-1 w-full' type="file" name="image" id="image">
+        </div>
 
         <!-- Name -->
         <div>
@@ -14,6 +20,13 @@
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+
+         <!-- phone -->
+         <div class="mt-4">
+            <label for="phone">phone</label>
+            <input class='block mt-1 w-full' type="text" name="phone" id="phone">
         </div>
 
         <!-- Password -->

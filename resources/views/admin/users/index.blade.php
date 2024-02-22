@@ -9,28 +9,11 @@
             <main class="w-full flex-grow p-6">
                 <h1 class="text-3xl text-black pb-6">Dashboard</h1>
     
-                <div class="flex flex-wrap mt-6">
-                    <div class="w-full lg:w-1/2 pr-0 lg:pr-2">
-                        <p class="text-xl pb-3 flex items-center">
-                            <i class="fas fa-plus mr-3"></i> Monthly Reports
-                        </p>
-                        <div class="p-6 bg-white">
-                            <canvas id="chartOne" width="400" height="200"></canvas>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-1/2 pl-0 lg:pl-2 mt-12 lg:mt-0">
-                        <p class="text-xl pb-3 flex items-center">
-                            <i class="fas fa-check mr-3"></i> Resolved Reports
-                        </p>
-                        <div class="p-6 bg-white">
-                            <canvas id="chartTwo" width="400" height="200"></canvas>
-                        </div>
-                    </div>
-                </div>
+
     
                 <div class="w-full mt-12">
                     <p class="text-xl pb-3 flex items-center">
-                        <i class="fas fa-list mr-3"></i> Les utilisateur
+                        <i class="fas fa-list mr-3"></i> Users
                     </p>
                     <div class="bg-white overflow-auto">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -38,7 +21,7 @@
                             <tr>
                                 <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <button class="flex items-center gap-x-3 focus:outline-none">
-                                        <span>id</span>
+                                        <span>Profile</span>
 
                                         <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
@@ -55,23 +38,39 @@
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     Email
                                 </th>
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">date de cration</th>
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Sa Role</th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    phone
+                                </th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"> Role</th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"> Status</th>
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Delete</th>
 
                             </tr>
-                           
+                            </thead>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                               
-                            </tr>
-                           
+                            @foreach ($users as $user )
+                                <tbody>
+                                <td><img src="{{$user->getFirstMediaUrl('images')}}" alt="" class="rounded-full h-12 w-12" ></td>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>{{$user->phone}}</td>
+                                <td> @foreach($user->roles as $role)
+                                    {{ $role->name }}
+                                     @endforeach
+                                </td>
+                                <td>{{$user->status}}</td>
+                                <td><form action="{{route('users.destroy', $user->id)}}" method="post">
+                                        @method('delete')
+                                            @csrf
+                                            <input type="hidden" name="id" value="">
+                                            <button type="submit" name="editId" style="background: none; border: none;">
+                                                <a href=""><i class="fas fa-trash" style="color: #e8b04f;"></i></a>
+                                            </button>
+                                    </form></td>
+                                </tr>
+                           </tbody>
                           
-                        </thead>
+                           @endforeach
                        
                     </table>
                     </div>

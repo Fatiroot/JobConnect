@@ -2,7 +2,7 @@
 
 // use App\Http\admin\Controllers\OfferController as ControllersOfferController;
 
-
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -38,12 +38,14 @@ Route::get('/master',function(){
 Route::get('/index',function(){
     return view('admin.index');
 });
-Route::get('/ajoute',function(){
-    return view('admin.AjouteCaractaire');
-});
+// Route::get('/ajoute',function(){
+//     return view('admin.AjouteCaractaire');
+// });
 
+Route::resource('cities',CityController::class);
 Route::get('/offer',[OfferController::class,'index'])->name('offer.index');
 Route::get('/offer/create',[OfferController::class,'create'])->name('offres.create');
 Route::post('/offer/store',[OfferController::class,'store'])->name('offres.store');
+
 
 require __DIR__.'/auth.php';

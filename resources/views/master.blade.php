@@ -42,9 +42,9 @@
                 <i class="fas fa-sticky-note mr-3"></i>
                 OFFRE D EMPLOIS
             </a>
-            <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="{{route('cities.index')}}" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-table mr-3"></i>
-                les partenaires
+                 ajoute
             </a>
            <a href="" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
     <i class="fas fa-align-left mr-3"></i>

@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OfferController;
+use App\Http\Controllers\Condidater\FormationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,13 @@ Route::namespace('Admin')->post('/offer/store',[OfferController::class,'store'])
 
 //route ceo
     Route::namespace('Ceo')->resource('company', CompanyController::class);
+
+
+//route profile
+Route::namespace('Condidater')->get('/profile',function(){
+    return view('Condidater.profile');
+});
+Route::namespace('Condidater')->resource('/profile',FormationController::class);
 
 
 require __DIR__.'/auth.php';

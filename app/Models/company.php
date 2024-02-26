@@ -14,14 +14,12 @@ class Company extends Model
         'description',
         'phone',
         'adress',
-        'user_id',
 
     ];
-    public function user()
+    public function users()
     {
-        return $this->hasOne(User::class);
+        return $this->hasMany(User::class);
     }
-
     public function offres()
     {
         return $this->hasMany(Offre::class);

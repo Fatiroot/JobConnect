@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreOffreRequest;
 use App\Models\Offre;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OfferController extends Controller
 {

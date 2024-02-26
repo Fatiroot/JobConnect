@@ -27,6 +27,7 @@ class User extends Authenticatable implements HasMedia
         'phone',
         'skill',
         'status',
+        'comany_id'
     ];
 
     public const STATUS_LABELS = [
@@ -53,6 +54,10 @@ class User extends Authenticatable implements HasMedia
     public function formation()
     {
         return $this->hasMany(Formation::class);
+    }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 
     /**

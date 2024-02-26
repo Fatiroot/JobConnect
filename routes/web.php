@@ -7,7 +7,8 @@ use App\Http\Controllers\Ceo\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\OfferController;
+use App\Http\Controllers\Ceo\OfferController;
+use App\Http\Controllers\Admin\DomainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,8 @@ Route::namespace('Admin')->delete('/admin/{user}', [UserController::class, 'dest
 Route::namespace('Admin')->get('/admin/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::namespace('Admin')->put('/admin/{user}', [UserController::class, 'update'])->name('users.update');
 Route::namespace('Admin')->put('restore/{user}', [UserController::class, 'restore'])->name('users.restore');
+//route domain:
+Route::namespace('Admin')->resource('domain',DomainController::class);
 
 
 // Route::get('/ajoute',function(){
@@ -61,9 +64,9 @@ Route::namespace('Admin')->resource('cities',CityController::class);
 
 
 // Route Jobs:
-Route::namespace('Admin')->get('/offer',[OfferController::class,'index'])->name('offer.index');
-Route::namespace('Admin')->get('/offer/create',[OfferController::class,'create'])->name('offres.create');
-Route::namespace('Admin')->post('/offer/store',[OfferController::class,'store'])->name('offres.store');
+Route::namespace('Ceo')->get('/offer',[OfferController::class,'index'])->name('offer.index');
+Route::namespace('Ceo')->get('/offer/create',[OfferController::class,'create'])->name('offres.create');
+Route::namespace('Ceo')->post('/offer/store',[OfferController::class,'store'])->name('offres.store');
 
 
 

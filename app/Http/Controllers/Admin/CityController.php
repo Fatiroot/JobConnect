@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\City;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Domain;
 
 class CityController extends Controller
 {
@@ -14,10 +15,11 @@ class CityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $cities = City::all();
-        return view('admin.AjouteCaractaire', compact('cities'));
-    }
+{
+    $cities = City::all();
+    $domain = Domain::all();
+    return view('admin.AjouteCaractaire', compact('cities', 'domain')); // Include both variables
+}
 
     /**
      * Show the form for creating a new resource.

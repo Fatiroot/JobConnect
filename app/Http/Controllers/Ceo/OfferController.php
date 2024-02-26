@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Ceo;
 
 use App\Http\Requests\StoreOffreRequest;
 use App\Models\Offre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Company;
+use App\Models\Domain;
 
 class OfferController extends Controller
 {
@@ -26,7 +29,12 @@ class OfferController extends Controller
      */
     public function create()
     {
-        return view('admin.createOffer');
+        $companies = Company::all();
+        $domains = Domain::all();
+        $cities = City::all();
+
+        return view('admin.createOffer', compact('companies', 'domains', 'cities'));
+
     }
 
     /**

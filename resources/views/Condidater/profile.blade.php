@@ -51,7 +51,7 @@
                             <a href="/home" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500  lg:p-0 dark:text-white" aria-current="page">Home</a>
                         </li>
                         <li>
-                            <a href="/profile" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">My Profile</a>
+                            <a href="formations" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">My Profile</a>
                         </li>
                     </ul>
                 </div> 
@@ -80,10 +80,10 @@
                 </div> 
             </div>  
             <div class="relative">
-               <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24" viewBox="0 0 20 20" fill="currentColor"> 
-                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" /></svg>    
-                </div>  
+            <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
+                <img src="{{ Auth::user()->getFirstMediaUrl('images') }}" alt="User Image">
+            </div>
+ 
             </div>   
             <div class="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
                 <button  class="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">  Connect</button> 
@@ -91,27 +91,30 @@
             </div>
         </div>
         <div class="mt-20 text-center border-b pb-12"> 
-            <h1 class="text-4xl font-medium text-gray-700">Jessica Jones, <span class="font-light text-gray-500">27</span></h1> 
-            <p class="font-light text-gray-600 mt-3">Bucharest, Romania</p>    
-            <p class="mt-8 text-gray-500">Solution Manager - Creative Tim Officer</p>  
-            <p class="mt-2 text-gray-500">University of Computer Science</p>  
+            <h1 class="text-4xl font-medium text-gray-700">{{ Auth::user()->name }}</h1> 
+            <p class="font-light text-gray-600 mt-3">{{ Auth::user()->email }}</p>    
+            <p class="mt-8 text-gray-500">{{ Auth::user()->phone }}</p>  
+            <p class="mt-2 text-gray-500">{{ Auth::user()->skill }}</p>  
         </div>  
             <div class="mt-12 flex flex-col justify-center">
             <p class="text-gray-600 text-center font-light lg:px-16">An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>  
         </div>
     </div>
  </div>
- <a href="{{ route('profile.create')}}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700">
-                Add New formation
-            </a>
-            @foreach ($formations as $formation )
+ <div class="flex justify-center">
+    <a href="{{ route('formations.create')}}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700">
+        Add New formation
+    </a>
+</div>
+
+            
 
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="container px-5 py-24 mx-auto">
     <div class="flex flex-wrap -m-12">
             
-        
-      <div class="p-12 md:w-1/2 flex flex-col items-start">
+       @foreach ($formations as $formation ) 
+      <div class="p-12 md:w-1/3 flex flex-col items-start">
         <h2 class="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">{{$formation->diploma}}</h2>
         <p class="leading-relaxed mb-8">{{$formation->year}}</p>
         
@@ -129,11 +132,60 @@
               <path d="M12 5l7 7-7 7"></path>
             </svg>
           </a>
+          <form action="{{ route('formations.destroy', $formation) }}" method="post">
+                @method('delete')
+                @csrf
+                <input type="hidden" name="id" value="{{$formation->id}}">
+                <button type="submit" name="destroyId" style="background: none; border: none;">
+                 delete</button>
+            </form>
         </div>
+
       </div>
+        @endforeach
     </div>
 </section>
+<div class="flex justify-center">
+    <a href="{{ route('experiences.create')}}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700">
+        Add New experience
+    </a>
+</div>
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap -m-12">
+            
+       @foreach ($experiences as $experience ) 
+      <div class="p-12 md:w-1/3 flex flex-col items-start">
+        <h2 class="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">{{$experience->description}}</h2>
+        <p class="leading-relaxed mb-8">{{$experience->duration}}</p>
+        
+        <a class="inline-flex items-center">
+          <img alt="blog" src="https://dummyimage.com/104x104" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
+          <span class="flex-grow flex flex-col pl-4">
+            <span class="title-font font-medium text-gray-900">company name</span>
+            <span class="text-gray-400 text-xs tracking-widest mt-0.5">{{$experience->name_company}}</span>
+          </span>
+        </a>
+        <div class="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full">
+        <a class="text-indigo-500 inline-flex items-center"> More
+            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </a>
+          <form action="{{ route('experiences.destroy', $experience) }}" method="post">
+                @method('delete')
+                @csrf
+                <input type="hidden" name="id" value="{{$experience->id}}">
+                <button type="submit" name="destroyId" style="background: none; border: none;">
+                 delete</button>
+            </form>
+        </div>
+
+      </div>
         @endforeach
+    </div>
+</section> 
 
 
 <script>

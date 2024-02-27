@@ -10,11 +10,11 @@ use App\Http\Requests\ExperienceUpdateRequest;
 
 class ExperienceController extends Controller
 {
-    public function index()
-    {
-        $experiences = Experience::all();
-        return view('Condidater.experiences.index', compact('experiences'));
-    }
+    // public function index()
+    // {
+    //     $experiences = Experience::all();
+    //     return view('Condidater.index', compact('experiences'));
+    // }
 
     public function create()
     {
@@ -24,8 +24,9 @@ class ExperienceController extends Controller
 
     public function store(ExperienceStoreRequest $request)
     {
-        Experience::create($request->validated());
-        return redirect()->route('Condidater.experiences.index')->with('success', 'Experience created successfully.');
+        $experiences= Experience::create($request->all());
+        $experiences['user_id'] = auth()->id();
+        return redirect()->route('formations.index')->with('success', 'Experience created successfully.');
     }
 
     public function show(Experience $experience)
@@ -48,6 +49,6 @@ class ExperienceController extends Controller
     public function destroy(Experience $experience)
     {
         $experience->delete();
-        return redirect()->route('Condidater.experiences.index')->with('success', 'Experience deleted successfully.');
+        return redirect()->route('formations.index')->with('success', 'Experience deleted successfully.');
     }
 }

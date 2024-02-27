@@ -16,7 +16,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        return view('admin.offres');
+        return view('ceo.offres.index');
     }
 
     /**

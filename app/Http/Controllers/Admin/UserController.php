@@ -32,7 +32,7 @@ class UserController extends Controller
             'phone' => $request->phone,
 
         ]);
-        $user->roles()->attach([2]);
+        $user->roles()->attach([1]);
         $user->addMediaFromRequest('image')->toMediaCollection('images');
         return to_route('login');
 

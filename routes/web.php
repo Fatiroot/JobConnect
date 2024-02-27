@@ -6,8 +6,9 @@ use App\Models\Experience;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\DomainController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\OfferController;
+use App\Http\Controllers\Ceo\OfferController;
 use App\Http\Controllers\Ceo\CompanyController;
 use App\Http\Controllers\Condidater\ExperienceController;
 use App\Http\Controllers\Condidater\FormationController;
@@ -42,14 +43,14 @@ Route::get('/master',function(){
 });
 
 // Route users:
-Route::middleware('checkAdmin')->group(function () {
+// Route::middleware('checkAdmin')->group(function () {
     Route::get('users',[UserController::class,'index']);
     Route::get('/dashboard', [UserController::class , 'allusers'])->name('dashboard');
     Route::delete('/admin/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::get('/admin/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/admin/{user}', [UserController::class, 'update'])->name('users.update');
     Route::put('restore/{user}', [UserController::class, 'restore'])->name('users.restore');
-    });
+    // });
 
 // Route::get('/ajoute',function(){
 //     return view('admin.AjouteCaractaire');
@@ -65,16 +66,13 @@ Route::namespace('Admin')->resource('cities',CityController::class);
 
 
 // Route Jobs:
-Route::namespace('Admin')->get('/offer',[OfferController::class,'index'])->name('offer.index');
-Route::namespace('Admin')->get('/offer/create',[OfferController::class,'create'])->name('offres.create');
-Route::namespace('Admin')->post('/offer/store',[OfferController::class,'store'])->name('offres.store');
-
 Route::namespace('Ceo')->resource('offer',OfferController::class);
 
 
 //route ceo
     Route::namespace('Ceo')->resource('company', CompanyController::class);
 
+    Route::namespace('Admin')->resource('domain',DomainController::class);
 
 //route profile
 // Route::namespace('Condidater')->get('/profile',function(){

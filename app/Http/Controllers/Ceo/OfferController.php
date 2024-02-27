@@ -78,8 +78,14 @@ class OfferController extends Controller
      */
     public function edit($id)
     {
-        $offre = Offre::find($id);
-        return view('admin.editOffer', compact('offre', 'companies', 'domains', 'cities'));
+            $offre = Offre::find($id);
+            $companies = Company::all();
+            $domains = Domain::all();
+            $cities = City::all();
+        
+            return view('admin.EditeOffer', compact('offre', 'companies', 'domains', 'cities'));
+     
+        
     }
 
     /**
@@ -89,13 +95,13 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {   
-    $offre = Offre::find($id);
-    // Mise à jour de l'offre
-    $offre->update($request->all());
-    // Redirection
-    return redirect()->route('offer.index')->with('success', 'Offre mise à jour avec succès');
+    public function update(Request $request, $id){
+        $offre = Offre::findOrFail($id);
+        $offre->update($request->except('_token'));
+    
+        return redirect()->route('offer.index')->with('success', 'Offre mise à jour avec succès');
+
+
     }
 
     /**

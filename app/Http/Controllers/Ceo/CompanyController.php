@@ -17,7 +17,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        return view('ceo.company.index',compact('companies'));
+        return view('ceo.company.createCompany',compact('companies'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('ceo.company.create');
+        return view('ceo.company.createCompany');
     }
 
     /**

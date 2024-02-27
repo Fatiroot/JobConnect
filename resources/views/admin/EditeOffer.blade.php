@@ -4,23 +4,24 @@
 <div class="w-full overflow-x-hidden border-t flex flex-col">
 
 <div class="p-4 md:p-5 ">
-                <form class="space-y-4" action="{{ route('offer.store') }}" method="post">
-                     @csrf
+                    <form class="space-y-4" action="{{ route('offer.update', $offre->id) }}" method="post">
+                        @method('PUT')
+                        @csrf
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">title</label>
-                        <input type="text"  name="title" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <input type="text"  value="{{ $offre->title}}"  name="title" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
                         <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">description</label>
-                        <input type="text" name="description" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <input type="text"  value="{{ $offre->description}}" name="description" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
                         <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">type_contract</label>
-                        <input type="text" name="type_contract" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <input type="text"  value="{{ $offre->type_contract}}" name="type_contract" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
                     <div>
                         <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">salary</label>
-                        <input type="number" name="salary" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                        <input type="number"  value="{{ $offre->salary}}" name="salary" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
 
                 <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a company</label>
@@ -54,4 +55,5 @@
             </div>
             </div>
             </div>
+
 @endsection

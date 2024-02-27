@@ -21,21 +21,28 @@ class Offre extends Model
 
     ];
 
+
+
     public const STATUS_LABELS = [
         '1'=> 'Pending',
         '2'=> 'Accepted',
         '3'=> 'Refused',
     ];
-    public function company(){
-        $this->belongsTo(Company::class);
-    }
+    // Dans votre modèle Offre
 
-    public function domain(){
-        $this->belongsTo(Domain::class);
-    }
+public function company(){
+    return $this->belongsTo(Company::class);
+}
+
+
+public function domain()
+{
+    return $this->belongsTo(Domain::class);
+}
+
 
     public function city(){
-        $this->belongsTo(City::class);
+        return $this->belongsTo(City::class);
     }
 
     public function users()

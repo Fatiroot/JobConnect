@@ -1,16 +1,19 @@
 <?php
 
 // use App\Http\admin\Controllers\OfferController as ControllersOfferController;
-use App\Models\Experience;
+use App\Models\Domain;
 
+use App\Models\Experience;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Ceo\OfferController;
+
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Ceo\CompanyController;
-use App\Http\Controllers\Condidater\ExperienceController;
+use App\Http\Controllers\Admin\DomainController;
 use App\Http\Controllers\Condidater\FormationController;
+use App\Http\Controllers\Condidater\ExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,13 +64,15 @@ Route::get('/home',function(){
 
 
 // Route cites
+// Route cites
 Route::namespace('Admin')->resource('cities',CityController::class);
+Route::namespace('Admin')->resource('domain',DomainController::class);
 
 
 // Route Jobs:
-Route::get('/offer',[OfferController::class,'index']);
-Route::get('/offer/create',[OfferController::class,'create'])->name('offres.create');
-Route::post('/offer/store',[OfferController::class,'store'])->name('offres.store');
+// Route::get('/offer',[OfferController::class,'index']);
+// Route::get('/offer/create',[OfferController::class,'create'])->name('offres.create');
+// Route::post('/offer/store',[OfferController::class,'store'])->name('offres.store');
 
 Route::namespace('Ceo')->resource('offer',OfferController::class);
 

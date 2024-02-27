@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Ceo;
 
 use App\Http\Requests\StoreOffreRequest;
 use App\Models\Offre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Company;
+use App\Models\Domain;
 
 class OfferController extends Controller
 {
@@ -16,7 +19,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        return view('admin.offres');
+        return view('ceo.offres.index');
     }
 
     /**
@@ -26,7 +29,10 @@ class OfferController extends Controller
      */
     public function create()
     {
-        return view('ceo.offres.create');
+        $cities = City::all();
+        $domains = Domain::all();
+        $companies = Company::all();
+        return view('ceo.offres.create',compact('cities','domains','companies'));
     }
 
     /**

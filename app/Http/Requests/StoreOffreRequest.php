@@ -28,7 +28,6 @@ class StoreOffreRequest extends FormRequest
             'description' => 'required|string|max:1000', 
             'type_contract' => 'required|string|max:255',
             'salary' => 'required|string|max:255',
-            'company_id' => 'required|integer|exists:companies,id',
             'domain_id' => 'required|integer|exists:domains,id',
             'city_id' => 'required|integer|exists:cities,id',
         ];

@@ -14,11 +14,8 @@ class Offre extends Model
         'description',
         'type_contract',
         'salary',
-        'company_id',
         'domain_id',
         'city_id',
-        'status',
-
     ];
 
 

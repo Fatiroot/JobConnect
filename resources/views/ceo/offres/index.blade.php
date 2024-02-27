@@ -102,7 +102,7 @@
 <!-- ************************************** -->
 
 <div class="flex justify-center">
-    <a href="{{ route('offres.create')}}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700">
+    <a href="{{ route('offer.create')}}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700">
         Add New experience
     </a>
 </div>

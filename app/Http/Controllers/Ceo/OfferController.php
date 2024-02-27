@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Ceo;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreOffreRequest;
 use App\Models\Offre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\City;
-use App\Models\Company;
-use App\Models\Domain;
 
 class OfferController extends Controller
 {
@@ -19,8 +16,7 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offres = Offre::all();
-        return view('admin.offres', compact('offres'));
+        return view('admin.offres');
     }
 
     /**
@@ -30,12 +26,7 @@ class OfferController extends Controller
      */
     public function create()
     {
-        $companies = Company::all();
-        $domains = Domain::all();
-        $cities = City::all();
-
-        return view('admin.createOffer', compact('companies', 'domains', 'cities'));
-
+        return view('admin.createOffer');
     }
 
     /**
@@ -45,19 +36,11 @@ class OfferController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreOffreRequest $request)
-{
-    try{
-            
-        Offre::create($request->all());
-        return redirect()->route('offer.index');
-
-        }catch(\Exception $e){
-
-            return redirect()->back();
-        }
-
-    
-}
+    {
+        $offre = new Offre($request->validated());
+        $offre->save();
+        return redirect()->route('offres.index')->with('success', 'Offre ajoutée avec succès.');
+    }
 
     /**
      * Display the specified resource.
@@ -78,14 +61,7 @@ class OfferController extends Controller
      */
     public function edit($id)
     {
-            $offre = Offre::find($id);
-            $companies = Company::all();
-            $domains = Domain::all();
-            $cities = City::all();
-        
-            return view('admin.EditeOffer', compact('offre', 'companies', 'domains', 'cities'));
-     
-        
+        //
     }
 
     /**
@@ -95,13 +71,9 @@ class OfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
-        $offre = Offre::findOrFail($id);
-        $offre->update($request->except('_token'));
-    
-        return redirect()->route('offer.index')->with('success', 'Offre mise à jour avec succès');
-
-
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     /**
@@ -112,8 +84,6 @@ class OfferController extends Controller
      */
     public function destroy($id)
     {
-        $offre = Offre::find($id);
-    $offre->delete();
-    return redirect()->route('offer.index')->with('success', 'Offre supprimée avec succès');
+        //
     }
 }

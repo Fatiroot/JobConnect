@@ -34,7 +34,8 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone',
+            'phone'=> ['required', 'string', 'max:255'],
+            'role' => ['required'],
 
         ]);
 
@@ -44,14 +45,20 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'phone'=> $request->phone,
         ]);
-        $user->roles()->attach([2]);
-        $user->addMediaFromRequest('image')->toMediaCollection('images');
+        if ($request->role == 1) {
+            $user->roles()->attach(2);
+            event(new Registered($user));
+            Auth::login($user); 
+            return redirect('/home');    
 
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        }else{
+            $user->roles()->attach(3); 
+            event(new Registered($user));
+            Auth::login($user);
+            
+            return redirect()->route('company.create');
+           
+       
     }
+}
 }

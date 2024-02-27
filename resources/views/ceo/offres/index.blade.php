@@ -82,10 +82,10 @@
                 <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="/home" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500  lg:p-0 dark:text-white" aria-current="page">Home</a>
+                            <a href="{{route('company.index')}} " class="block py-2 pl-3 pr-4 text-black hover:text-blue-500  lg:p-0 dark:text-white" aria-current="page">Company</a>
                         </li>
                         <li>
-                            <a href="formations" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">My Profile</a>
+                            <a href="{{ route('offer.index') }}" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">offers</a>
                         </li>
                     </ul>
                 </div> 
@@ -98,26 +98,7 @@
 	</div>
 </header>
     <!-- *****************************end header***************************** -->
-    <section class="dark:bg-gray-800 dark:text-gray-100">
-	<div class="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
-		<div class="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
-			<img src="https://www.mambaui.com/assets/svg/Business_SVG.svg" alt="" class="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
-		</div>
-		<div class="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
-			<h1 class="text-5xl font-bold leadi sm:text-6xl">JobConnect
-			</h1>
-			<p class="mt-6 mb-8 text-lg sm:mb-12">Our job platform is a meeting point for companies looking for talent and candidates seeking new job opportunities. We offer a wide range of job offers in various sectors,
-                 from engineering to finance, marketing, and human resources. Companies can easily post job offers and access a database of qualified candidates, while candidates can create an online profile, browse available offers, and apply with just a few clicks. Our goal is to facilitate the recruitment 
-                process and connect companies with the most suitable candidates, helping both parties succeed in their professional endeavors
-			</p>
-			<div class="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-            <a rel="noopener noreferrer" href="#" class="px-8 py-3 text-lg font-semibold rounded dark:bg-violet-400 dark:text-gray-900" style="color: blue; background-color: gray;">learn more</a>
-            <a rel="noopener noreferrer" href="#" class="px-8 py-3 text-lg font-semibold border rounded dark:border-gray-100" style="color:white; background-color: blue;">Get Started</a>
-
-			</div>
-		</div>
-	</div>
-</section>
+ 
 <!-- ************************************** -->
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="container px-5 py-24 mx-auto">

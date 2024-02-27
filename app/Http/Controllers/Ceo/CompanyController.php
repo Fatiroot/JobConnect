@@ -45,7 +45,7 @@ class CompanyController extends Controller
             return redirect()->back()->withInput()->with('error', 'Unable to save user information.');
         }
         
-        return redirect()->route('ceo.offers.index')->with('success', 'Company created successfully.');
+        return redirect()->route('offer.index')->with('success', 'Company created successfully.');
     }
     
     

@@ -26,7 +26,7 @@ class OfferController extends Controller
      */
     public function create()
     {
-        return view('admin.createOffer');
+        return view('ceo.offres.create');
     }
 
     /**

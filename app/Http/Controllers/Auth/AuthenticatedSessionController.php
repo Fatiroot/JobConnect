@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
         
         return redirect()->intended('/home');
        } 
-        return redirect()->intended('/profile');
+        return redirect()->intended('/offer');
        }
     }
 

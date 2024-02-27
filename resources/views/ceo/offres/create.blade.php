@@ -82,7 +82,7 @@
                 <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="{{route('company.index')}}" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500  lg:p-0 dark:text-white" aria-current="page">Company</a>
+                            <a href="{{route('company.index')}} " class="block py-2 pl-3 pr-4 text-black hover:text-blue-500  lg:p-0 dark:text-white" aria-current="page">Company</a>
                         </li>
                         <li>
                             <a href="/offer" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">offers</a>
@@ -100,48 +100,56 @@
     <!-- *****************************end header***************************** -->
  
 <!-- ************************************** -->
-    @foreach ($companies as $company )
-<section class="text-gray-600 body-font overflow-hidden">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="flex flex-wrap -m-12">
-    
-        <div class="p-12 md:w-1/2 flex flex-col items-start">
-        <h2 class="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">{{ $company->name }}</h2>
-        <p class="leading-relaxed mb-8">{{ $company->description }}</p>
-        <div class="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full">
-          <a class="text-indigo-500 inline-flex items-center">Learn More
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-          </a>
-          <span class="text-gray-400 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-            <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-              <circle cx="12" cy="12" r="3"></circle>
-            </svg>1.2K
-          </span>
-          <span class="text-gray-400 inline-flex items-center leading-none text-sm">
-            <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-              <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-            </svg>6
-          </span>
-        </div>
-        <a class="inline-flex items-center">
-          <img alt="blog" src="https://dummyimage.com/104x104" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
-          <span class="flex-grow flex flex-col pl-4">
-            <span class="title-font font-medium text-gray-900">{{ Auth::user()->name }}</span>
-            <span class="text-gray-400 text-xs tracking-widest mt-0.5">Representative</span>
-          </span>
-        </a>
-      </div> 
-        
-     
-    </div>
-  </div>
-</section>
-  @endforeach
 
+
+
+
+<div class="w-full overflow-x-hidden border-t flex flex-col">
+
+<div class="p-4 md:p-5 ">
+                <form class="space-y-4" action="{{ route('offres.store') }}" method="post">
+                     @csrf
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">title</label>
+                        <input type="text"  name="title" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">description</label>
+                        <input type="text" name="description" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">type_contract</label>
+                        <input type="text" name="type_contract" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">salary</label>
+                        <input type="text" name="salary" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+
+                    <label for="partenaire" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a company</label>
+                        <select id="partenaire" name="partenaires_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="" selected disabled>Choose a company</option>
+                                <option value=""></option>
+                        </select>
+
+                        <label for="partenaire" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a domain</label>
+                        <select id="partenaire" name="partenaires_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="" selected disabled>Choose a domain</option>
+                                <option value=""></option>
+                        </select>
+
+                        <label for="partenaire" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a city</label>
+                        <select id="partenaire" name="partenaires_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="" selected disabled>Choose a city</option>
+                                <option value=""></option>
+                        </select>
+                        
+                    
+                    <button type="submit" name="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajouter</button>
+                </form>
+            </div>
+            </div>
+            </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>

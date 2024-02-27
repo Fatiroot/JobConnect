@@ -53,7 +53,7 @@ Route::namespace('Admin')->resource('cities',CityController::class);
 
 
 // Route Jobs:
-Route::get('/offer',[OfferController::class,'index'])->name('offer.index');
+Route::get('/offer',[OfferController::class,'index']);
 Route::get('/offer/create',[OfferController::class,'create'])->name('offres.create');
 Route::post('/offer/store',[OfferController::class,'store'])->name('offres.store');
 

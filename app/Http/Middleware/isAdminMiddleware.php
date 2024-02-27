@@ -22,11 +22,10 @@ class isAdminMiddleware
         foreach($user->roles as $role)
         {
         if ($role->name ==='admin') {
-           
-       
+         
             return $next($request);
           } else{
-            return redirect('login');
+            return abort('404');
           }
         
         }

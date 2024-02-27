@@ -44,7 +44,10 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'phone'=> $request->phone,
+            
         ]);
+        
+        $user->addMediaFromRequest('image')->toMediaCollection('images');
         if ($request->role == 1) {
             $user->roles()->attach(2);
             event(new Registered($user));

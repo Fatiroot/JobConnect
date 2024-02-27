@@ -42,14 +42,14 @@ Route::get('/master',function(){
 });
 
 // Route users:
-
-Route::namespace('Admin')->resource('users',UserController::class);
-Route::namespace('Admin')->get('/dashboard', [UserController::class , 'allusers'])->name('dashboard');
-Route::namespace('Admin')->delete('/admin/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-Route::namespace('Admin')->get('/admin/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::namespace('Admin')->put('/admin/{user}', [UserController::class, 'update'])->name('users.update');
-Route::namespace('Admin')->put('restore/{user}', [UserController::class, 'restore'])->name('users.restore');
-
+Route::middleware('checkAdmin')->group(function () {
+    Route::get('users',[UserController::class,'index']);
+    Route::get('/dashboard', [UserController::class , 'allusers'])->name('dashboard');
+    Route::delete('/admin/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/admin/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/admin/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::put('restore/{user}', [UserController::class, 'restore'])->name('users.restore');
+    });
 
 // Route::get('/ajoute',function(){
 //     return view('admin.AjouteCaractaire');
@@ -64,6 +64,10 @@ Route::get('/home',function(){
 Route::namespace('Admin')->resource('cities',CityController::class);
 
 
+// Route Jobs:
+Route::namespace('Admin')->get('/offer',[OfferController::class,'index'])->name('offer.index');
+Route::namespace('Admin')->get('/offer/create',[OfferController::class,'create'])->name('offres.create');
+Route::namespace('Admin')->post('/offer/store',[OfferController::class,'store'])->name('offres.store');
 
 Route::namespace('Ceo')->resource('offer',OfferController::class);
 
@@ -77,8 +81,8 @@ Route::namespace('Ceo')->resource('offer',OfferController::class);
 //     return view('Condidater.profile');
 // });
 
-Route::namespace('Condidater')->resource('formations',FormationController::class);
-Route::namespace('Condidater')->resource('experiences',ExperienceController::class);
+Route::resource('formations',FormationController::class);
+Route::resource('experiences',ExperienceController::class);
 
 // Route::namespace('Condidater')->get('/profile',[FormationController::class,'create'])->name('formations.create');
 // Route::namespace('Condidater')->post('/profile',[FormationController::class,'store'])->name('formations.store');

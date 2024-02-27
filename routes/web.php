@@ -64,10 +64,9 @@ Route::namespace('Admin')->resource('cities',CityController::class);
 
 
 // Route Jobs:
-Route::namespace('Ceo')->get('/offer',[OfferController::class,'index'])->name('offer.index');
-Route::namespace('Ceo')->get('/offer/create',[OfferController::class,'create'])->name('offres.create');
-Route::namespace('Ceo')->post('/offer/store',[OfferController::class,'store'])->name('offres.store');
-
+// Route::namespace('Ceo')->get('/offer',[OfferController::class,'index'])->name('offer.index');
+// Route::namespace('Ceo')->get('/offer/create',[OfferController::class,'create'])->name('offres.create');
+Route::namespace('Ceo')->resource('offer',OfferController::class);
 
 
 //route ceo

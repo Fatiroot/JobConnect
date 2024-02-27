@@ -19,7 +19,8 @@ class OfferController extends Controller
      */
     public function index()
     {
-        return view('admin.offres');
+        $offres = Offre::all();
+        return view('admin.offres', compact('offres'));
     }
 
     /**
@@ -44,11 +45,19 @@ class OfferController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreOffreRequest $request)
-    {
-        $offre = new Offre($request->validated());
-        $offre->save();
-        return redirect()->route('offres.index')->with('success', 'Offre ajoutée avec succès.');
-    }
+{
+    try{
+            
+        Offre::create($request->all());
+        return redirect()->route('offer.index');
+
+        }catch(\Exception $e){
+
+            return redirect()->back();
+        }
+
+    
+}
 
     /**
      * Display the specified resource.
@@ -69,7 +78,8 @@ class OfferController extends Controller
      */
     public function edit($id)
     {
-        //
+        $offre = Offre::find($id);
+        return view('admin.editOffer', compact('offre', 'companies', 'domains', 'cities'));
     }
 
     /**
@@ -80,8 +90,12 @@ class OfferController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+    $offre = Offre::find($id);
+    // Mise à jour de l'offre
+    $offre->update($request->all());
+    // Redirection
+    return redirect()->route('offer.index')->with('success', 'Offre mise à jour avec succès');
     }
 
     /**
@@ -92,6 +106,8 @@ class OfferController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $offre = Offre::find($id);
+    $offre->delete();
+    return redirect()->route('offer.index')->with('success', 'Offre supprimée avec succès');
     }
 }

@@ -4,7 +4,7 @@
 <div class="w-full overflow-x-hidden border-t flex flex-col">
      
     <main class="w-full flex-grow p-6">
-        <a href="{{ route('offres.create') }}" type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add new Offer</a>
+        <a href="{{ route('offer.create') }}" type="button" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add new Offer</a>
         <div class="w-full mt-12">
                     <p class="text-xl pb-3 flex items-center">
                         <i class="fas fa-list mr-3"></i> Les Offers
@@ -26,26 +26,43 @@
                                 </th>
 
                                 <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    Name
+                                    title
                                 </th>
 
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    Email
+                                description
                                 </th>
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">date de cration</th>
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Sa Role</th>
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Delete</th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">type_contract</th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Salaire</th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">company_id</th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">domain_id</th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">city_id</th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">update</th>
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">delete</th>
+                            </tr>
+                            @foreach ($offres as $offre)
+                                    <tr>
+                                        <td>{{ $offre->id }}</td>
+                                        <td>{{ $offre->title }}</td>
+                                        <td>{{ $offre->description }}</td>
+                                        <td>{{ $offre->type_contract }}</td>
+                                        <td>{{ $offre->salary }}</td>
+                                        <td>{{ $offre->company ? $offre->company->name : 'N/A' }}</td>
+                                        <td>{{ $offre->domain ? $offre->domain->name : 'N/A' }}</td> 
+                                        <td>{{ $offre->city ? $offre->city->name : 'N/A' }}</td>
+                                        <!-- Update Button -->
+        <td><a href="{{ route('offer.edit', $offre->id) }}" class="btn btn-sm btn-primary">Modifier</a></td>
+        <!-- Delete Button -->
+        <td>
+            <form action="{{ route('offer.destroy', $offre->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+            </form>
+        </td>
+                                    </tr>
+                                @endforeach
 
-                            </tr>
-                           
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                               
-                            </tr>
                            
                           
                         </thead>

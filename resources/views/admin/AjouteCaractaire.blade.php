@@ -1,5 +1,6 @@
 @extends('master')
 @section('content')
+
 <div class="w-full overflow-x-hidden border-t flex flex-col">
 <div class="py-12">
         

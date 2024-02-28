@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreOffreRequest;
+use Illuminate\Support\Facades\DB;
 
 class OfferController extends Controller
 {
@@ -127,4 +128,61 @@ class OfferController extends Controller
         $offre->delete();
         return redirect()->route('offerceo.index')->with('success', 'Offre supprimée avec succès');
     }
+
+    
+    
+    public function ajoute(Request $request, $id)
+    {
+        try {
+            $offre = Offre::findOrFail($id);
+            $user = auth()->user(); // Récupérer l'utilisateur authentifié
+    
+            // Enregistrer la demande de participation dans la base de données
+            $offre->pendingCandidates()->attach($user->id, [
+                'application_date' => now(),
+                'description' => $request->input('description', ''), // Utiliser une chaîne vide si 'description' n'est pas fourni
+                'status' => 1, // Assumant que 1 signifie "en attente"
+                'user_id' => $user->id,
+                'offre_id' => $id
+            ]);
+    
+            // Rediriger avec un message de succès
+            return redirect()->back()->with('success', 'Votre demande de participation a été soumise avec succès et est en attente d\'approbation.');
+        } catch (\Exception $e) {
+            // En cas d'erreur, rediriger avec un message d'erreur
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la soumission de votre demande de participation. Message d\'erreur : ' . $e->getMessage());
+        }
+    }
+
+    
+    public function showApplications()
+    {
+        $applications = DB::table('offre_users')
+                            ->join('users', 'offre_users.user_id', '=', 'users.id')
+                            ->join('offres', 'offre_users.offre_id', '=', 'offres.id')
+                            ->select('offre_users.*', 'users.name as userName', 'offres.title as offreTitle')
+                            ->get();
+    
+        return view('AjouteOffer', compact('applications'));
+    }
+
+    public function acceptApplication(Request $request, $id)
+{
+    $application = DB::table('offre_users')->where('id', $id)->update(['status' => 2]); // 2 pour "Accepté"
+    return back()->with('success', 'Candidature acceptée.');
+}
+
+public function rejectApplication(Request $request, $id)
+{
+    $application = DB::table('offre_users')->where('id', $id)->update(['status' => 3]); // 3 pour "Refusé"
+    return back()->with('error', 'Candidature refusée.');
+}
+
+    
+
+    
+
+
+
+    
 }

@@ -105,51 +105,90 @@
  
 <!-- ************************************** -->
 
-<div class="flex justify-center">
-    <a href="{{ route('offerceo.create')}}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700">
-        Add New offer
-    </a>
+
+
+<!-- Domain -->
+<div class="w-full overflow-x-hidden border-t flex flex-col">
+<div class="py-12">
+<div class="w-full mt-12">
+@if(session('success'))
+    <div class="p-4 mb-4 text-sm text-green-700 bg-green-200 rounded-lg dark:bg-green-700 dark:text-green-200" role="alert">
+        {{ session('success') }}
     </div>
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-    @foreach ($offres as $offre)
-        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
-            <img class="h-40 w-full object-cover object-center" src="{{$offre->getFirstMediaUrl('images')}}" alt="">
-            <div class="px-6 py-4">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">{{ $offre->title }}</h2>
-                <p class="mt-2 text-gray-600 dark:text-gray-300">{{ $offre->description }}</p>
-            </div>
-            <div class="px-6 pt-4 pb-2">
-                <span class="inline-block bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $offre->type_contract }}</span>
-                <span class="inline-block bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{ $offre->salary }}</span>
-            </div>
-            <div class="px-6 pt-4 pb-2 flex justify-between items-center">
-                <a href="#" class="text-indigo-500 inline-flex items-center">Learn More
-                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14"></path>
-                        <path d="M12 5l7 7-7 7"></path>
-                    </svg>
-                </a>
-                <div>
-                    <a href="{{ route('offerceo.edit', $offre->id) }}" class="text-blue-500 inline-flex items-center">Update
-                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                    <form action="{{ route('offerceo.destroy', $offre->id) }}" method="POST" class="inline">
+@endif
+
+@if(session('error'))
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-200 rounded-lg dark:bg-red-700 dark:text-red-200" role="alert">
+        {{ session('error') }}
+    </div>
+@endif
+
+                    <p class="text-xl pb-3 flex items-center">
+                        <i class="fas fa-list mr-3"></i> Domaine
+                    </p>
+                    <div class="bg-white overflow-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+    <thead class="bg-gray-50 dark:bg-gray-800">
+        <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                ID
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Application Date
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                User
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Offer
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+            </th>
+        </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+        @foreach($applications as $application)
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ $application->id }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ $application->application_date }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ $application->userName }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    {{ $application->offreTitle }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex justify-start space-x-2">
+                    <form action="{{ route('applications.accept', $application->id) }}" method="POST">
                         @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-500 inline-flex items-center">Delete
-                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
+                        @method('PATCH')
+                        <button type="submit" class="px-4 py-2 bg-green-500 text-white text-sm font-medium rounded hover:bg-green-600">Accepter</button>
+                    </form>
+                    <form action="{{ route('applications.reject', $application->id) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="px-4 py-2 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600">Refuser</button>
                     </form>
                 </div>
-            </div>
-        </div>
-    @endforeach
-</div>
+            </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
+                    </div>
+                </div>
+                </div>
+                </div>
+
+
+
+
 
 
 

@@ -30,6 +30,16 @@ class OfferController extends Controller
     }
 
 
+    public function index2()
+    {
+        // Récupérer toutes les offres
+        $offres = Offre::all();
+    
+        return view('home', compact('offres'));
+    }
+    
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -68,8 +78,11 @@ class OfferController extends Controller
      */
     public function show($id)
     {
+        $offre = Offre::with(['company', 'domain', 'city'])->findOrFail($id); 
 
+        return view('DetailOfferUser', compact('offre'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

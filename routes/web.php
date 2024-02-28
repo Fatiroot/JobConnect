@@ -95,11 +95,16 @@ Route::namespace('Admin')->get('offer',[AdminOfferController::class,'index'])->n
     
  });
 
+ Route::namespace('Ceo')->get('/offer/{id}', [OfferController::class, 'show'])->name('offer.show');
+
 // Route formation
 Route::resource('formations',FormationController::class);
 
 // Route experience
 Route::resource('experiences',ExperienceController::class);
+
+
+Route::namespace('Ceo')->get('/home',[OfferController::class, 'index2']);
 
 
 

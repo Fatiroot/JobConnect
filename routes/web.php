@@ -95,12 +95,24 @@ Route::namespace('Admin')->get('offer',[AdminOfferController::class,'index'])->n
     
  });
 
+ Route::namespace('Ceo')->get('/offer/{id}', [OfferController::class, 'show'])->name('offer.show');
+ Route::namespace('Ceo')->post('/offer/{id}/ajoute', [OfferController::class, 'ajoute'])->name('offer.ajoute');
 // Route formation
 Route::resource('formations',FormationController::class);
 
 // Route experience
 Route::resource('experiences',ExperienceController::class);
 
+
+Route::namespace('Ceo')->get('/home',[OfferController::class, 'index2']);
+
+
+
+
+// Assurez-vous d'utiliser le bon namespace pour votre OfferController
+Route::get('/applications', [OfferController::class, 'showApplications'])->name('applications.show');
+Route::patch('/applications/{id}/accept', [OfferController::class, 'acceptApplication'])->name('applications.accept');
+Route::patch('/applications/{id}/reject', [OfferController::class, 'rejectApplication'])->name('applications.reject');
 
 
 

@@ -29,6 +29,7 @@ class Offre extends Model implements HasMedia
         '1'=> 'Pending',
         '2'=> 'Accepted',
         '3'=> 'Refused',
+        '4'=> 'Awaiting Approval', // Nouveau statut ajouté
     ];
     // Dans votre modèle Offre
 
@@ -47,8 +48,11 @@ public function domain()
         return $this->belongsTo(City::class);
     }
 
-    public function users()
-    {
-        $this->belongsToMany(User::class);
-    }
+    public function pendingCandidates()
+{
+    return $this->belongsToMany(User::class, 'offre_users', 'offre_id', 'user_id')
+                ->withPivot('status', 'application_date', 'description')
+                ->wherePivot('status', '=', 1); // Si 1 représente "en attente"
+}
+
 }

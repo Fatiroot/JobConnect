@@ -119,6 +119,27 @@
 	</div>
 </section>
 <!-- ************************************** -->
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+	
+    @foreach ($offres as $offre)
+        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+            <img class="h-40 w-full object-cover object-center" src="{{$offre->getFirstMediaUrl('images')}}" alt="">
+            <div class="px-6 py-4">
+                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">{{ $offre->title }}</h2>
+                <p class="mt-2 text-gray-600 dark:text-gray-300">{{ $offre->description }}</p>
+            </div>
+            <div class="px-6 pt-4 pb-2">
+                <span class="inline-block bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $offre->type_contract }}</span>
+                <span class="inline-block bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{ $offre->salary }}</span>
+            </div>
+            <div class="px-6 pt-4 pb-2 flex justify-between items-center">
+			<a href="{{ route('offer.show', $offre->id) }}" class="text-indigo-500 inline-flex items-center">Learn More</a>
+                <div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
 
 
 
@@ -204,5 +225,6 @@
 	</div>
 </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-</body>
-</html>
+
+ </body>
+  </html>

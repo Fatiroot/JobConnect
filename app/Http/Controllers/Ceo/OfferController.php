@@ -24,6 +24,7 @@ class OfferController extends Controller
         return view('admin.offres', compact('offres'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -65,6 +66,7 @@ class OfferController extends Controller
      */
     public function show($id)
     {
+
     }
 
     /**

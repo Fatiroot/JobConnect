@@ -122,6 +122,7 @@
 
 
 
+
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="container px-5 py-24 mx-auto">
     <div class="flex flex-wrap -m-12">
@@ -204,5 +205,6 @@
 	</div>
 </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-</body>
-</html>
+
+ </body>
+  </html>

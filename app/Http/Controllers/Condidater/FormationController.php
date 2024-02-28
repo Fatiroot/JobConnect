@@ -8,14 +8,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormationStoreRequest;
 use App\Http\Requests\FormationUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class FormationController extends Controller
 {
     
     public function index()
     {
-        $formations = Formation::all();
-        $experiences = Experience::all();
+        $user = Auth::user();
+
+        $formations = Formation::where('user_id', $user->id)->get();
+        $experiences = Experience::where('user_id', $user->id)->get();
+        
         return view('Condidater.profile', compact(['formations','experiences']));
     }
 

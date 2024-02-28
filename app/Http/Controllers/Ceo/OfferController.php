@@ -178,6 +178,20 @@ public function rejectApplication(Request $request, $id)
     return back()->with('error', 'Candidature refusée.');
 }
 
+public function search(Request $request)
+    {
+        $keyword = $request->query('keyword');
+        $domains = Domain::all();
+
+        $offres = Offre::where('title', 'like', '%' . $keyword . '%')
+            ->orWhere('description', 'like', '%' . $keyword . '%')
+            ->orWhereHas('domain', function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            })
+            ->get();
+        return view('/home', compact('offres', 'keyword' , 'domains'));
+    }
+
     
 
     

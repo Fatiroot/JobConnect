@@ -74,6 +74,9 @@ Route::get('/home',function(){
     return view('home');
 });
 
+Route::get('/offers/search', [OfferController::class, 'search'])->name('joboffers.search');
+
+
 
 
 

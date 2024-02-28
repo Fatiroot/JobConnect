@@ -1,17 +1,21 @@
 <?php
 
 // use App\Http\admin\Controllers\OfferController as ControllersOfferController;
-use App\Models\Experience;
 
+use App\Http\Controllers\Admin\AdminOfferController;
+use App\Models\Domain;
+
+use App\Models\Experience;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\DomainController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Ceo\OfferController;
 use App\Http\Controllers\Ceo\CompanyController;
-use App\Http\Controllers\Condidater\ExperienceController;
 use App\Http\Controllers\Condidater\FormationController;
+use App\Http\Controllers\Condidater\ExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,19 +42,30 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/master',function(){
-    return view('master');
-});
+// Route::get('/master',function(){
+//     return view('master');
+// });
+
+
 
 // Route users:
-// Route::middleware('checkAdmin')->group(function () {
-    Route::get('users',[UserController::class,'index']);
+Route::middleware('checkAdmin')->group(function () {
+    Route::resource('users',UserController::class);
     Route::get('/dashboard', [UserController::class , 'allusers'])->name('dashboard');
-    Route::delete('/admin/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/admin/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/admin/{user}', [UserController::class, 'update'])->name('users.update');
     Route::put('restore/{user}', [UserController::class, 'restore'])->name('users.restore');
-    // });
+    // Route cites
+    Route::namespace('Admin')->resource('cities',CityController::class);
+
+    // Route domain
+    Route::namespace('Admin')->resource('domain',DomainController::class);
+
+    //Route company
+    Route::get('companyIndex', [CompanyController::class,'showCompanies'])->name('companie.show');
+
+
+    });
+
+
 
 // Route::get('/ajoute',function(){
 //     return view('admin.AjouteCaractaire');
@@ -61,30 +76,32 @@ Route::get('/home',function(){
 
 
 
-// Route cites
-Route::namespace('Admin')->resource('cities',CityController::class);
 
 
-// Route Jobs:
-Route::namespace('Ceo')->resource('offer',OfferController::class);
+Route::namespace('Admin')->get('offer',[AdminOfferController::class,'index'])->name('offer.index');
 
 
-//route ceo
+
+ Route::middleware('checkRep')->group(function () {
+    Route::namespace('Ceo')->resource('offerceo',OfferController::class);
+
+    //route recruiter
+    Route::get('users/create', [UserController::class,'createrecruiter'])->name('users.createrecruiter');
+    Route::post('users/store', [UserController::class,'storerecruiter'])->name('users.storerecruiter');
+    Route::delete('users/destroy/{user}', [UserController::class,'destroyrecruiter'])->name('users.destroyrecruiter');
+    //route compamy
     Route::namespace('Ceo')->resource('company', CompanyController::class);
 
-    Route::namespace('Admin')->resource('domain',DomainController::class);
+    
+ });
 
-//route profile
-// Route::namespace('Condidater')->get('/profile',function(){
-//     return view('Condidater.profile');
-// });
-
+// Route formation
 Route::resource('formations',FormationController::class);
+
+// Route experience
 Route::resource('experiences',ExperienceController::class);
 
-// Route::namespace('Condidater')->get('/profile',[FormationController::class,'create'])->name('formations.create');
-// Route::namespace('Condidater')->post('/profile',[FormationController::class,'store'])->name('formations.store');
-// Route::namespace('Condidater')->delete('/profile/{formation}', [FormationController::class, 'destroy'])->name('formations.destroy');
+
 
 
 

@@ -82,7 +82,7 @@
                 <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="/company" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500  lg:p-0 dark:text-white" aria-current="page">Company</a>
+                            <a href="company" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500  lg:p-0 dark:text-white" aria-current="page">Company</a>
                         </li>
                         <li>
                             <a href="/offerceo" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">offers</a>
@@ -101,55 +101,71 @@
  
 <!-- ************************************** -->
 
-<div class="flex justify-center">
-    <a href="{{ route('offerceo.create')}}" class="btn btn-primary bg-green-500 mt-5 text-white py-2 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-green active:bg-green-700">
-        Add New offer
-    </a>
-    </div>
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-    @foreach ($offres as $offre)
-        <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
-            <img class="h-40 w-full object-cover object-center" src="{{$offre->getFirstMediaUrl('images')}}" alt="">
-            <div class="px-6 py-4">
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">{{ $offre->title }}</h2>
-                <p class="mt-2 text-gray-600 dark:text-gray-300">{{ $offre->description }}</p>
-            </div>
-            <div class="px-6 pt-4 pb-2">
-                <span class="inline-block bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $offre->type_contract }}</span>
-                <span class="inline-block bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">{{ $offre->salary }}</span>
-            </div>
-            <div class="px-6 pt-4 pb-2 flex justify-between items-center">
-                <a href="#" class="text-indigo-500 inline-flex items-center">Learn More
-                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14"></path>
-                        <path d="M12 5l7 7-7 7"></path>
-                    </svg>
-                </a>
-                <div>
-                    <a href="{{ route('offerceo.edit', $offre->id) }}" class="text-blue-500 inline-flex items-center">Update
-                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                    <form action="{{ route('offerceo.destroy', $offre->id) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-500 inline-flex items-center">Delete
-                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </form>
-                </div>
-            </div>
+
+
+
+<div class="w-full overflow-x-hidden border-t flex flex-col">
+
+<div class="p-4 md:p-5 ">
+                <form class="space-y-4" action="{{ route('offerceo.store') }}" method="post" enctype="multipart/form-data">
+                     @csrf
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">image</label>
+                        <input type="file"  name="image" id="image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">title</label>
+                        <input type="text"  name="title" id="text1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">description</label>
+                        <input type="text" name="description" id="text2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">type_contract</label>
+                        <input type="text" name="type_contract" id="text3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+                    <div>
+                        <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">salary</label>
+                        <input type="text" name="salary" id="text4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
+
+                    <div>
+            <label for="city_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+            <select id="city_id" name="city_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <option value="">select a city</option>
+                @foreach ($cities as $city)
+                <option value="{{ $city->id }}">{{$city->name}}</option>
+            @endforeach
+            </select>
         </div>
-    @endforeach
-</div>
+        <div>
+            <label for="domain_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Domain</label>
+            <select id="domain_id" name="domain_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <option value="">select a domain</option>
+                @foreach ($domains as $domain)
+                <option value="{{ $domain->id }}">{{$domain->name}}</option>
+            @endforeach
+            </select>
+        </div>
 
-
-
-
+        <div>
+            <label for="company_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
+            <select id="company_id" name="company_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <option value="">select a company</option>
+                @foreach ($companies as $company)
+                <option value="{{ $company->id }}">{{$company->name}}</option>
+            @endforeach
+            </select>
+        </div>
+                 
+                        
+                    
+                    <button type="submit" name="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajouter</button>
+                </form>
+            </div>
+            </div>
+            </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>

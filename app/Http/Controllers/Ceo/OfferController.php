@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Ceo;
 
-use App\Http\Requests\StoreOffreRequest;
+use App\Models\City;
 use App\Models\Offre;
+use App\Models\Domain;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\City;
-use App\Models\Company;
-use App\Models\Domain;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreOffreRequest;
 
 class OfferController extends Controller
 {
@@ -19,9 +20,13 @@ class OfferController extends Controller
      */
     public function index()
     {
-        $offres = Offre::all();
+        // $offres = Offre::all();
+        $user = Auth::user();
 
-        return view('admin.offres', compact('offres'));
+    // Récupérer les offres où l'ID de la société correspond à l'ID de la société de l'utilisateur
+    $offres = Offre::where('company_id', $user->company_id)->get();
+
+        return view('ceo.offres.index', compact('offres'));
     }
 
 
@@ -36,7 +41,7 @@ class OfferController extends Controller
         $domains = Domain::all();
         $cities = City::all();
 
-        return view('admin.createOffer', compact('companies', 'domains', 'cities'));
+        return view('ceo.offres.create', compact('companies', 'domains', 'cities'));
     }
 
     /**
@@ -47,15 +52,12 @@ class OfferController extends Controller
      */
     public function store(StoreOffreRequest $request)
     {
-        try{
-
-            Offre::create($request->all());
-            return redirect()->route('offer.index');
     
-            }catch(\Exception $e){
+        $offer= Offre::create($request->all());
+        $offer->addMediaFromRequest('image')->toMediaCollection('images');
+            return redirect()->route('offerceo.index');
     
-                return redirect()->back();
-            }
+            
     }
 
     /**
@@ -81,7 +83,7 @@ class OfferController extends Controller
         $companies = Company::all(); 
         $domains = Domain::all(); 
         $cities = City::all();
-        return view('admin.EditeOffer', compact('offre', 'companies', 'domains', 'cities'));
+        return view('ceo.offres.update', compact('offre', 'companies', 'domains', 'cities'));
     }
 
     /**
@@ -97,7 +99,7 @@ class OfferController extends Controller
         // Mise à jour de l'offre
         $offre->update($request->all());
         // Redirection
-        return redirect()->route('offer.index')->with('success', 'Offre mise à jour avec succès');
+        return redirect()->route('offerceo.index')->with('success', 'Offre mise à jour avec succès');
     }
 
     /**
@@ -110,6 +112,6 @@ class OfferController extends Controller
     {
         $offre = Offre::find($id);
         $offre->delete();
-        return redirect()->route('offer.index')->with('success', 'Offre supprimée avec succès');
+        return redirect()->route('offerceo.index')->with('success', 'Offre supprimée avec succès');
     }
 }

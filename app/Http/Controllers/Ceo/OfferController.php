@@ -112,7 +112,10 @@ class OfferController extends Controller
         $offre = Offre::find($id);
         // Mise à jour de l'offre
         $offre->update($request->all());
-        // Redirection
+        if ($request->hasFile('image')) {
+            $offre->clearMediaCollection('images');
+            $offre->addMediaFromRequest('image')->toMediaCollection('images');
+        }
         return redirect()->route('offerceo.index')->with('success', 'Offre mise à jour avec succès');
     }
 

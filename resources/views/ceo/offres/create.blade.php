@@ -87,6 +87,9 @@
                         <li>
                             <a href="/offerceo" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">offers</a>
                         </li>
+                        <li>
+                            <a href="{{ route('applications.show') }}" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">Voir les Candidatures</a>
+                        </li>
                     </ul>
                 </div> 
                 @endauth		</div>

@@ -87,6 +87,9 @@
                         <li>
                             <a href="/offerceo" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">offers</a>
                         </li>
+                        <li>
+                            <a href="{{ route('applications.show') }}" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">Voir les Candidatures</a>
+                        </li>
                     </ul>
                 </div> 
                 @endauth		</div>
@@ -107,6 +110,10 @@
                     <form class="space-y-4" action="{{ route('offerceo.update', $offre->id) }}" method="post">
                         @method('PUT')
                         @csrf
+                        <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">image</label>
+                        <input type="file"  name="image" id="image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required value="{{ $offre->getFirstMediaUrl('images')}}">
+                    </div>
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">title</label>
                         <input type="text"  value="{{ $offre->title}}"  name="title" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>

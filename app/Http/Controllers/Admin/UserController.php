@@ -115,7 +115,7 @@ class UserController extends Controller
     
    public function destroyrecruiter(User $user)
    {
-    dd('dfghjk');
+    dd('Inside destroyrecruiter method', $user);
       $user->delete();
        return view('ceo.recruiter.index');
    }

@@ -182,7 +182,6 @@
                                     phone
                                 </th>
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"> Role</th>
-                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"> Status</th>
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Delete</th>
 
                             </tr>
@@ -198,12 +197,11 @@
                                     {{ $role->name }}
                                      @endforeach
                                 </td>
-                                <td>{{$user->status}}</td>
-                                <td><form action="{{route('users.destroyrecruiter', $user->id)}}" method="post">
+                                <td><form action="{{route('users.destroyrecruiter',$user->id)}}" method="post">
                                         @method('delete')
                                             @csrf
-                                            <input type="hidden" name="id" value="">
-                                            <button type="submit" name="editId" style="background: none; border: none;">
+                                            <input type="hidden" name="id" value="{{$user->id}}">
+                                            <button type="submit" name="delete" style="background: none; border: none;">
                                                 <a href="">delete</a>
                                             </button>
                                     </form></td>

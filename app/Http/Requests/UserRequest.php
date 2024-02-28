@@ -29,6 +29,8 @@ class UserRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', Password::defaults()],
             'phone',
+            'company_id',
+            'image'=>'required',
         
         ];
     }

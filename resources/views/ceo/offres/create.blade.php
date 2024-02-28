@@ -82,10 +82,10 @@
                 <div class="items-center justify-between hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="{{route('company.index')}} " class="block py-2 pl-3 pr-4 text-black hover:text-blue-500  lg:p-0 dark:text-white" aria-current="page">Company</a>
+                            <a href="company" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500  lg:p-0 dark:text-white" aria-current="page">Company</a>
                         </li>
                         <li>
-                            <a href="/offer" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">offers</a>
+                            <a href="/offerceo" class="block py-2 pl-3 pr-4 text-black hover:text-blue-500 lg:p-0 dark:text-white" aria-current="page">offers</a>
                         </li>
                     </ul>
                 </div> 
@@ -107,8 +107,12 @@
 <div class="w-full overflow-x-hidden border-t flex flex-col">
 
 <div class="p-4 md:p-5 ">
-                <form class="space-y-4" action="{{ route('offer.store') }}" method="post">
+                <form class="space-y-4" action="{{ route('offerceo.store') }}" method="post" enctype="multipart/form-data">
                      @csrf
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">image</label>
+                        <input type="file"  name="image" id="image" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                    </div>
                     <div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">title</label>
                         <input type="text"  name="title" id="text1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>

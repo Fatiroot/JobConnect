@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -20,7 +21,7 @@ class UserController extends Controller
 
     public function create()
     {
-       //
+        return view('ceo.recruiter.create');
     }
 
     public function store(UserRequest $request)
@@ -32,9 +33,9 @@ class UserController extends Controller
             'phone' => $request->phone,
 
         ]);
-        $user->roles()->attach([1]);
+        $user->roles()->attach([4]);
         $user->addMediaFromRequest('image')->toMediaCollection('images');
-        return to_route('login');
+        return to_route('comany.index');
 
     }
 
@@ -83,4 +84,40 @@ class UserController extends Controller
 
        return redirect()->route('dashboard');
    }
+
+   
+   public function createrecruiter()
+   {
+       return view('ceo.recruiter.create');
+   }
+
+   public function storerecruiter(UserRequest $request)
+   {
+       // Récupérer l'utilisateur authentifié
+       $authUser = Auth::user();
+   
+       // Créer un nouvel utilisateur avec les données fournies dans la requête
+       $user = new User();
+       $user->name = $request->name;
+       $user->email = $request->email;
+       $user->password = Hash::make($request->password);
+       $user->phone = $request->phone;
+       $user->company_id = $authUser->company_id; // Associer l'ID de la société de l'utilisateur authentifié
+       $user->save();
+   
+       // Assigner le rôle de recruteur à l'utilisateur
+       $user->roles()->attach(4);
+       $user->addMediaFromRequest('image')->toMediaCollection('images');
+
+       // Rediriger vers la route appropriée (corrigé to_route en route)
+       return redirect()->route('company.index');
+   }
+    
+   public function destroyrecruiter(User $user)
+   {
+    dd('dfghjk');
+      $user->delete();
+       return view('ceo.recruiter.index');
+   }
+
 }

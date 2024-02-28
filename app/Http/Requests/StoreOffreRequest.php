@@ -30,6 +30,9 @@ class StoreOffreRequest extends FormRequest
             'salary' => 'required|string|max:255',
             'domain_id' => 'required|integer|exists:domains,id',
             'city_id' => 'required|integer|exists:cities,id',
+            'company_id' => 'required|integer|exists:companies,id',
+            'image'=>'required',
+            
         ];
     }
 }

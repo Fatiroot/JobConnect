@@ -82,16 +82,18 @@
                                 </th>
 
                                 <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                Supprimer
+                                description
                                 </th>
                             </tr>
-                    
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                    @foreach ( $companies as $company )
+                        
+                   
+                                <tr>                       
+                                    <td>{{$company->id}}</td>
+                                    <td>{{$company->name}}</td>
+                                    <td>{{$company->description}}</td>
                                 </tr>
-                         
+                          @endforeach
                         </thead>
                     </table>
                     </div>

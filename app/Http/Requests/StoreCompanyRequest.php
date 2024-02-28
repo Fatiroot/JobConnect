@@ -28,6 +28,7 @@ class StoreCompanyRequest extends FormRequest
             'description' => 'required|string',
             'phone' => 'required|string|max:20',
             'adress' => 'required|string|max:255',
+            'image'=>'required',
         
         ];
     }

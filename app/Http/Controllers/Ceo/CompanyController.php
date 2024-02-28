@@ -16,16 +16,28 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
-        return view('ceo.company.createCompany',compact('companies'));
+        $user = Auth::user();
+        
+        // Retrieve users who have the role with ID 4 and belong to the same company as the authenticated user
+        $users = User::where('company_id', $user->company_id)
+                        ->whereHas('roles', function ($query) {
+                            $query->where('id', 4);
+                        })
+                        ->get();
+    
+        // Retrieve the company of the authenticated user
+        $companies = Company::where('id', $user->company_id)->get();
+    
+        return view('ceo.company.index', compact('companies', 'users'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('ceo.company.createCompany');
+        return view('ceo.company.create');
     }
 
     /**
@@ -45,7 +57,7 @@ class CompanyController extends Controller
             return redirect()->back()->withInput()->with('error', 'Unable to save user information.');
         }
         
-        return redirect()->route('offer.index')->with('success', 'Company created successfully.');
+        return redirect()->route('offerceo.index')->with('success', 'Company created successfully.');
     }
     
     
@@ -83,4 +95,12 @@ class CompanyController extends Controller
          $company->delete();
         return back();
     }
+    public function showCompanies()
+    {
+        $companies = Company::all();
+        return view('ceo.company.createCompany',compact('companies'));
+
+    }
+
+    
 }

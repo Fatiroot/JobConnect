@@ -107,7 +107,7 @@
 <div class="w-full overflow-x-hidden border-t flex flex-col">
 
 <div class="p-4 md:p-5 ">
-                    <form class="space-y-4" action="{{ route('offerceo.update', $offre->id) }}" method="post">
+                    <form class="space-y-4" action="{{ route('offerceo.update', $offre->id) }}" method="post" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div>
@@ -131,13 +131,8 @@
                         <input type="number"  value="{{ $offre->salary}}" name="salary" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
                     </div>
 
-                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a company</label>
-                <select id="company" name="company_id" class="bg-gray-50 border ...">
-                    <option value="" selected disabled>Choose a company</option>
-                    @foreach ($companies as $company)
-                        <option value="{{ $company->id }}">{{ $company->name }}</option>
-                    @endforeach
-                </select>
+                <input type="hidden" name="company_id" value="{{Auth::user()->company_id}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+
 
                 <label for="domain" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a domain</label>
                 <select id="domain" name="domain_id" class="bg-gray-50 border ...">
